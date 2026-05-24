@@ -15,7 +15,10 @@ export async function POST(req: NextRequest) {
 
     const existing = await prisma.user.findUnique({ where: { email } })
     if (existing) {
-      return NextResponse.json({ error: 'An account with this email already exists' }, { status: 409 })
+      return NextResponse.json(
+        { error: 'An account with this email already exists' },
+        { status: 409 }
+      )
     }
 
     const hashed = await bcrypt.hash(password, 12)
@@ -38,13 +41,16 @@ export async function POST(req: NextRequest) {
           totalProfit: 0,
           roi: 0,
           riskLevel: 'MEDIUM',
-          assets: [],
-          performance: [],
+          assets: JSON.stringify([]),
+          performance: JSON.stringify([]),
         },
       })
     }
 
-    return NextResponse.json({ message: 'Account created successfully', userId: user.id }, { status: 201 })
+    return NextResponse.json(
+      { message: 'Account created successfully', userId: user.id },
+      { status: 201 }
+    )
   } catch (error: any) {
     console.error('Register error:', error)
     return NextResponse.json({ error: 'Registration failed. Please try again.' }, { status: 500 })
