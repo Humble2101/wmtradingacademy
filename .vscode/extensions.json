@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "Prisma.prisma",
+    "dbaeumer.vscode-eslint",
+    "christian-kohler.path-intellisense",
+    "ms-vscode.vscode-typescript-next",
+    "formulahendry.auto-rename-tag",
+    "steoates.autoimport",
+    "yoavbls.pretty-ts-errors"
+  ]
+}

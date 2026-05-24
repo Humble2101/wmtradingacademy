@@ -1,0 +1,45 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "tailwindCSS.experimental.classRegex": [
+    ["cn\\(([^)]*)\\)", "\"([^\"]*)\""],
+    ["clsx\\(([^)]*)\\)", "\"([^\"]*)\""]
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.next": true,
+    "**/node_modules": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/prisma/migrations": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "emmet.includeLanguages": {
+    "typescriptreact": "html"
+  },
+  "css.validate": false,
+  "editor.inlineSuggest.enabled": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#050B18",
+    "sideBar.background": "#0A1628",
+    "editor.background": "#050B18",
+    "statusBar.background": "#F5A623",
+    "statusBar.foreground": "#050B18"
+  }
+}

@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-syne: 'Syne', sans-serif;
+  --font-dm-mono: 'DM Mono', monospace;
+  --font-dm-sans: 'DM Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #050b18;
+  color: #f0f4ff;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050b18;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a4e8a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a6eaa;
+}
+
+@layer components {
+  .font-syne {
+    font-family: 'Syne', sans-serif;
+  }
+  .font-mono-dm {
+    font-family: 'DM Mono', monospace;
+  }
+
+  .btn-gold {
+    @apply bg-gradient-to-r from-gold to-gold-2 text-bg font-bold rounded-xl transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-outline {
+    @apply bg-transparent border border-border-2 text-[#8BA3CC] rounded-xl transition-all duration-200 hover:border-gold hover:text-gold;
+  }
+  .btn-cyan {
+    @apply bg-gradient-to-r from-accent-cyan to-[#00B4CC] text-bg font-bold rounded-xl transition-all duration-200 hover:opacity-90;
+  }
+  .card-dark {
+    @apply bg-bg-2 border border-border rounded-2xl transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:border-border-2 hover:-translate-y-1;
+  }
+  .label-mono {
+    @apply font-mono-dm text-[11px] tracking-widest text-gold uppercase;
+  }
+  .metric-card {
+    @apply bg-bg-2 border border-border rounded-2xl p-5;
+  }
+  .tag {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-mono-dm;
+  }
+  .tag-green {
+    @apply bg-accent-green/10 text-accent-green;
+  }
+  .tag-red {
+    @apply bg-accent-red/10 text-accent-red;
+  }
+  .tag-gold {
+    background-color: rgba(245, 166, 35, 0.1);
+    @apply text-gold;
+  }
+  .tag-blue {
+    @apply bg-accent-cyan/10 text-accent-cyan;
+  }
+  .tag-gray {
+    @apply bg-white/10 text-[#8BA3CC];
+  }
+
+  .input-dark {
+    @apply w-full bg-bg border border-border rounded-xl px-4 py-3 text-sm text-white placeholder-[#4A6A99] outline-none transition-all duration-200 focus:border-gold font-sans;
+  }
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 text-[#8BA3CC] text-sm w-full text-left border border-transparent;
+  }
+  .sidebar-item-active {
+    background-color: rgba(245, 166, 35, 0.1);
+    border-color: rgba(245, 166, 35, 0.2);
+    @apply text-gold border;
+  }
+  .sidebar-item:not(.sidebar-item-active):hover {
+    @apply bg-surface text-white;
+  }
+  .glass-card {
+    @apply bg-bg-2/80 backdrop-blur-sm border border-border rounded-2xl;
+  }
+  .gradient-text-gold {
+    @apply bg-gradient-to-r from-gold to-gold-2 bg-clip-text text-transparent;
+  }
+  .gradient-text-cyan {
+    @apply bg-gradient-to-r from-accent-cyan to-[#00FFEA] bg-clip-text text-transparent;
+  }
+  .section-title {
+    @apply font-syne text-4xl md:text-5xl font-extrabold tracking-tight leading-tight;
+  }
+  .progress-bar {
+    @apply h-1 bg-border rounded-full overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-gold to-gold-2 rounded-full;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(#1e3a6a 1px, transparent 1px),
+      linear-gradient(90deg, #1e3a6a 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.15;
+  }
+  .plan-card {
+    @apply bg-bg-2 border border-border rounded-2xl p-8 transition-all duration-300 relative overflow-hidden;
+  }
+  .plan-card-featured {
+    @apply border-gold;
+    background: linear-gradient(to bottom right, rgba(245, 166, 35, 0.08), #0f1a2e);
+  }
+  .plan-card:hover {
+    @apply border-border-2 -translate-y-1;
+  }
+}
