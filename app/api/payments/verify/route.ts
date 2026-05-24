@@ -1,9 +1,9 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-// PATCH /api/payments/verify — admin approves or rejects a bank transfer
 export async function PATCH(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -13,7 +13,10 @@ export async function PATCH(req: NextRequest) {
 
     const { transactionId, action } = await req.json()
     if (!transactionId || !['APPROVE', 'REJECT'].includes(action)) {
-      return NextResponse.json({ error: 'transactionId and action (APPROVE|REJECT) are required' }, { status: 400 })
+      return NextResponse.json(
+        { error: 'transactionId and action (APPROVE|REJECT) are required' },
+        { status: 400 }
+      )
     }
 
     const tx = await prisma.transaction.findUnique({
@@ -25,13 +28,18 @@ export async function PATCH(req: NextRequest) {
     const newStatus = action === 'APPROVE' ? 'APPROVED' : 'REJECTED'
     await prisma.transaction.update({ where: { id: transactionId }, data: { status: newStatus } })
 
-    // If approved subscription payment → activate subscription
     if (action === 'APPROVE' && tx.type === 'SUBSCRIPTION') {
       const planType = tx.description as any
       await prisma.subscription.upsert({
         where: { userId: tx.userId },
         update: { planName: planType, planType, status: 'ACTIVE', startDate: new Date() },
-        create: { userId: tx.userId, planName: planType, planType, status: 'ACTIVE', price: tx.amount },
+        create: {
+          userId: tx.userId,
+          planName: planType,
+          planType,
+          status: 'ACTIVE',
+          price: tx.amount,
+        },
       })
     }
 
@@ -42,7 +50,6 @@ export async function PATCH(req: NextRequest) {
   }
 }
 
-// GET /api/payments/verify — admin lists pending bank transfers
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)

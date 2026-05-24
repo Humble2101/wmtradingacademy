@@ -1,9 +1,9 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-// GET /api/reviews — public, returns approved reviews
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
@@ -22,7 +22,6 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// POST /api/reviews — authenticated users submit a review
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
@@ -42,7 +41,10 @@ export async function POST(req: NextRequest) {
       data: { userId, rating, title, message, status: 'PENDING' },
     })
 
-    return NextResponse.json({ message: 'Review submitted for moderation', id: review.id }, { status: 201 })
+    return NextResponse.json(
+      { message: 'Review submitted for moderation', id: review.id },
+      { status: 201 }
+    )
   } catch (error) {
     console.error('POST /api/reviews error:', error)
     return NextResponse.json({ error: 'Failed to submit review' }, { status: 500 })

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
@@ -13,8 +14,13 @@ export async function GET() {
 
     if (!portfolio) {
       return NextResponse.json({
-        totalValue: 0, totalInvested: 0, totalProfit: 0, roi: 0,
-        riskLevel: 'MEDIUM', assets: [], performance: [],
+        totalValue: 0,
+        totalInvested: 0,
+        totalProfit: 0,
+        roi: 0,
+        riskLevel: 'MEDIUM',
+        assets: [],
+        performance: [],
       })
     }
 
@@ -31,13 +37,23 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 })
     }
 
-    const { userId, totalValue, totalInvested, totalProfit, roi, riskLevel, assets, performance } = await req.json()
+    const { userId, totalValue, totalInvested, totalProfit, roi, riskLevel, assets, performance } =
+      await req.json()
     if (!userId) return NextResponse.json({ error: 'userId is required' }, { status: 400 })
 
     const portfolio = await prisma.portfolio.upsert({
       where: { userId },
       update: { totalValue, totalInvested, totalProfit, roi, riskLevel, assets, performance },
-      create: { userId, totalValue: totalValue || 0, totalInvested: totalInvested || 0, totalProfit: totalProfit || 0, roi: roi || 0, riskLevel: riskLevel || 'MEDIUM', assets: assets || [], performance: performance || [] },
+      create: {
+        userId,
+        totalValue: totalValue || 0,
+        totalInvested: totalInvested || 0,
+        totalProfit: totalProfit || 0,
+        roi: roi || 0,
+        riskLevel: riskLevel || 'MEDIUM',
+        assets: assets || [],
+        performance: performance || [],
+      },
     })
 
     return NextResponse.json(portfolio)

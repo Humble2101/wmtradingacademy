@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
@@ -18,7 +19,11 @@ export async function GET(req: NextRequest) {
     const users = await prisma.user.findMany({
       where: role ? { role: role as any } : {},
       select: {
-        id: true, name: true, email: true, role: true, createdAt: true,
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
         subscription: { select: { planName: true, status: true } },
       },
       orderBy: { createdAt: 'desc' },
@@ -34,7 +39,6 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// PATCH /api/admin/users — update a user's role or suspend account
 export async function PATCH(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
